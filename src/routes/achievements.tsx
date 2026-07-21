@@ -31,7 +31,7 @@ function AchievementsPage() {
         description="Real deployments, real platforms, real partnerships — this is what we've shipped."
       />
 
-      <section className="py-8 sm:py-12">
+      <section className="py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {achievements.map((a, i) => (
             <Reveal key={a.title} delay={i * 0.05}>

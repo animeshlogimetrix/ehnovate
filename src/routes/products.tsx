@@ -31,7 +31,7 @@ function ProductsPage() {
         description="Every Ehnovate product is built in-house — from the AI model to the field officer's app — for real deployments, not lab demos."
       />
 
-      <section className="py-8 sm:py-12">
+      <section className="py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 space-y-10">
           {products.map((p, idx) => (
             <Reveal key={p.slug}>

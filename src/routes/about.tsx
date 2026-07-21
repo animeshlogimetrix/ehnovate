@@ -35,7 +35,7 @@ function AboutPage() {
         description="Ehnovate Technologies is an AI and enterprise-software company building next-generation platforms for security, intelligence, and business operations."
       />
 
-      <section className="py-8 sm:py-12">
+      <section className="py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           <Reveal>
             <div className="rounded-3xl border border-border bg-card p-8">
@@ -72,7 +72,7 @@ function AboutPage() {
         </div>
       </section>
 
-      <section className="py-8 sm:py-12 bg-[color:var(--surface)]">
+      <section className="py-16 sm:py-24 bg-[color:var(--surface)]">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <SectionHeader eyebrow="Vision & Mission" title="What drives us forward" />
           <div className="mt-14 grid grid-cols-1 md:grid-cols-2 gap-6">

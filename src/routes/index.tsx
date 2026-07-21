@@ -91,7 +91,7 @@ function HomePage() {
   return (
     <SiteLayout>
       {/* HERO — Kinetic geometric layers */}
-      <section className="relative overflow-hidden pt-20 sm:pt-24 pb-12 sm:pb-16 bg-[color:var(--surface)]">
+      <section className="relative overflow-hidden pt-28 sm:pt-36 pb-24 sm:pb-32 bg-[color:var(--surface)]">
         {/* Skewed diagonal band */}
         <div
           className="absolute top-0 right-0 h-full w-2/3 pointer-events-none"
@@ -355,7 +355,7 @@ function HomePage() {
 
 
       {/* PRODUCTS */}
-      <section className="relative py-10 sm:py-14 bg-[color:var(--surface)]">
+      <section className="relative py-20 sm:py-28 bg-[color:var(--surface)]">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <SectionHeader
             eyebrow="Products"
@@ -363,27 +363,66 @@ function HomePage() {
             description="Every product is built in-house — from the AI model to the field officer's app."
           />
           <div className="mt-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {products.map((p, i) => (
-              <Reveal key={p.slug} delay={i * 0.06}>
-                <div className="group h-full rounded-3xl border border-border bg-card p-7 hover:shadow-[var(--shadow-elev)] hover:-translate-y-1 transition-all">
-                  <IconBadge icon={p.icon} color={p.color} size="lg" />
-                  <h3 className="mt-6 text-xl font-bold">{p.name}</h3>
-                  <div className="mt-1 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                    {p.tagline}
+            {products.map((p, i) => {
+              const accent = {
+                blue: "var(--brand-blue)",
+                green: "var(--brand-green)",
+                gold: "var(--brand-gold)",
+                red: "var(--brand-red)",
+              }[p.color];
+              return (
+                <Reveal key={p.slug} delay={i * 0.06}>
+                  <div className="group relative h-full overflow-hidden rounded-3xl border border-slate-200 bg-white p-7 shadow-sm hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+                    {/* Glow */}
+                    <div
+                      className="absolute -top-24 -right-24 h-56 w-56 rounded-full opacity-0 group-hover:opacity-100 blur-3xl transition-opacity duration-500"
+                      style={{ background: accent }}
+                    />
+                    {/* Accent bar */}
+                    <div
+                      className="absolute top-0 left-0 h-1 w-16 group-hover:w-full transition-[width] duration-500"
+                      style={{ background: accent }}
+                    />
+                    <div className="relative flex items-start justify-between">
+                      <IconBadge icon={p.icon} color={p.color} size="lg" />
+                      <span
+                        className="text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded ring-1"
+                        style={{
+                          color: accent,
+                          background: `color-mix(in oklab, ${accent} 10%, transparent)`,
+                          boxShadow: `inset 0 0 0 1px color-mix(in oklab, ${accent} 25%, transparent)`,
+                        }}
+                      >
+                        0{i + 1}
+                      </span>
+                    </div>
+                    <h3 className="relative mt-6 text-xl font-bold">{p.name}</h3>
+                    <div className="relative mt-1 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                      {p.tagline}
+                    </div>
+                    <p className="relative mt-3 text-sm text-muted-foreground leading-relaxed">
+                      {p.description}
+                    </p>
+                    <div className="relative mt-6 flex flex-wrap gap-1.5">
+                      {p.features.slice(0, 3).map((f) => (
+                        <span key={f.title} className="inline-flex items-center gap-1 rounded-md bg-slate-100 px-2 py-1 text-[10px] font-semibold text-slate-700">
+                          <f.icon className="h-3 w-3" /> {f.title}
+                        </span>
+                      ))}
+                    </div>
+                    <Link
+                      to="/products"
+                      className="relative mt-6 inline-flex items-center gap-1.5 text-sm font-bold uppercase tracking-wider group-hover:gap-3 transition-all"
+                      style={{ color: accent }}
+                    >
+                      Learn more <ArrowRight className="h-4 w-4" />
+                    </Link>
                   </div>
-                  <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
-                    {p.description}
-                  </p>
-                  <Link
-                    to="/products"
-                    className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-primary group-hover:gap-2.5 transition-all"
-                  >
-                    Learn more <ArrowRight className="h-4 w-4" />
-                  </Link>
-                </div>
-              </Reveal>
-            ))}
+                </Reveal>
+              );
+            })}
           </div>
+
         </div>
       </section>
 
