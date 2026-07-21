@@ -34,7 +34,7 @@ function ContactPage() {
         description="Talk to our team about a pilot, a deployment or a strategic partnership."
       />
 
-      <section className="py-8 sm:py-12">
+      <section className="py-16 sm:py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-8">
           <Reveal>
             <div className="space-y-4">

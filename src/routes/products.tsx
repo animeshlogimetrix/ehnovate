@@ -1,9 +1,10 @@
-﻿import { createFileRoute } from "@tanstack/react-router";
+ import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { PageHero } from "@/components/site/PageHero";
 import { Reveal } from "@/components/site/Reveal";
 import { IconBadge } from "@/components/site/IconBadge";
 import { products } from "@/lib/site-data";
+import { type LucideIcon } from "lucide-react";
 
 export const Route = createFileRoute("/products")({
   head: () => ({
@@ -18,7 +19,45 @@ export const Route = createFileRoute("/products")({
   component: ProductsPage,
 });
 
+function KeyCapabilities({ 
+  features, 
+  themeStyle
+}: { 
+  features: { icon: LucideIcon; title: string; description: string }[];
+  themeStyle: "dark" | "light";
+}) {
+  const topFeatures = features.slice(0, 4);
+
+  return (
+    <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-12">
+      {topFeatures.map((f, i) => {
+        const Icon = f.icon;
+        return (
+          <div key={i} className="pl-5 border-l-[3px] border-amber-500 flex flex-col">
+            <Icon className="h-6 w-6 text-amber-500 mb-4" strokeWidth={2} />
+            <div className={`text-[17px] font-bold mb-2 ${themeStyle === 'dark' ? 'text-white' : 'text-slate-900'}`}>
+              {f.title}
+            </div>
+            <div className={`text-[15px] leading-relaxed ${themeStyle === 'dark' ? 'text-slate-400' : 'text-slate-500'}`}>
+              {f.description}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+
 function ProductsPage() {
+  const themes = [
+    { bg: "bg-[#0A1128]", text: "text-white", desc: "text-slate-300", tagBg: "bg-cyan-500/10", tagText: "text-cyan-400", style: "dark" },
+    { bg: "bg-white", text: "text-slate-900", desc: "text-slate-600", tagBg: "bg-green-100", tagText: "text-green-700", style: "light" },
+    { bg: "bg-[#F8FAFC]", text: "text-slate-900", desc: "text-slate-600", tagBg: "bg-amber-100", tagText: "text-amber-700", style: "light" },
+    { bg: "bg-[#1E1E24]", text: "text-white", desc: "text-slate-400", tagBg: "bg-red-500/10", tagText: "text-red-400", style: "dark" },
+    { bg: "bg-gradient-to-b from-blue-50 to-white", text: "text-slate-900", desc: "text-slate-600", tagBg: "bg-blue-100", tagText: "text-blue-700", style: "light" },
+  ] as const;
+
   return (
     <SiteLayout>
       <PageHero
@@ -31,7 +70,7 @@ function ProductsPage() {
         description="Every Ehnovate product is built in-house — from the AI model to the field officer's app — for real deployments, not lab demos."
       />
 
-      <section className="py-8 sm:py-12">
+      <section className="py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 space-y-10">
           {products.map((p, idx) => (
             <Reveal key={p.slug}>

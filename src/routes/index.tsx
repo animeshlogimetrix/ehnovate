@@ -30,6 +30,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { AIVisualization } from "@/components/site/AIVisualization";
+import { HeroBackground } from "@/components/site/HeroBackground";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -90,27 +92,14 @@ const testimonials = [
 function HomePage() {
   return (
     <SiteLayout>
-      {/* HERO — Kinetic geometric layers */}
-      <section className="relative overflow-hidden pt-20 sm:pt-24 pb-12 sm:pb-16 bg-[color:var(--surface)]">
-        {/* Skewed diagonal band */}
-        <div
-          className="absolute top-0 right-0 h-full w-2/3 pointer-events-none"
-          style={{
-            background:
-              "linear-gradient(to bottom left, color-mix(in oklab, var(--brand-blue) 12%, transparent), transparent 70%)",
-            transform: "skewX(12deg) translateX(25%)",
-          }}
-        />
-        {/* Green blur pool */}
-        <div className="absolute -bottom-24 -left-24 h-[26rem] w-[26rem] rounded-full bg-[color:var(--brand-green)]/10 blur-3xl pointer-events-none" />
-        {/* Small floating gold diamond */}
-        <div className="absolute top-24 right-[22%] h-4 w-4 rotate-45 bg-[color:var(--brand-gold)]" />
-        <div className="absolute bottom-32 left-[18%] h-3 w-3 rotate-45 bg-[color:var(--brand-red)]/70" />
+      {/* Hero Section */}
+      <section className="relative overflow-hidden bg-slate-50 pt-24 pb-20 lg:pt-32 lg:pb-28 min-h-[90vh] flex flex-col justify-center">
+        <HeroBackground />
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left — copy */}
-            <div>
+            <div className="relative z-10">
               <Reveal>
                 <span className="eyebrow-bar">
                   <Sparkles className="mr-2 h-3.5 w-3.5" />
@@ -153,34 +142,7 @@ function HomePage() {
             {/* Right — geometric tile */}
             <Reveal delay={0.2}>
               <div className="relative mx-auto w-full max-w-md lg:max-w-none">
-                <div className="relative aspect-[4/3] border-8 border-white shadow-2xl overflow-hidden bg-[color:var(--ink)]">
-                  {/* Image Background */}
-                  <img src="/owl-ai-dashboard.png" alt="OWL-AI Dashboard" className="absolute inset-0 h-full w-full object-cover" />
-                  <div className="absolute inset-0 bg-[color:var(--brand-blue)] mix-blend-multiply opacity-20" />
-                  {/* KPI badge */}
-                  <div className="absolute bottom-6 right-6 bg-white px-6 py-4 shadow-xl border-t-4 border-[color:var(--brand-green)]">
-                    <div className="text-3xl font-bold text-foreground leading-none">
-                      99.9%
-                    </div>
-                    <div className="mt-1 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
-                      Uptime Guaranteed
-                    </div>
-                  </div>
-                  {/* Live indicator */}
-                  <div className="absolute top-6 left-6 inline-flex items-center gap-2 bg-white/95 px-3 py-1.5">
-                    <span className="relative flex h-2 w-2">
-                      <span className="absolute inset-0 animate-ping rounded-full bg-[color:var(--brand-green)] opacity-75" />
-                      <span className="relative inline-flex h-2 w-2 rounded-full bg-[color:var(--brand-green)]" />
-                    </span>
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-foreground">
-                      OWL-AI · Live
-                    </span>
-                  </div>
-                </div>
-                {/* Floating geometric shapes */}
-                <div className="absolute -top-6 -right-6 h-24 w-24 bg-[color:var(--brand-green)] mix-blend-multiply opacity-80" />
-                <div className="absolute -bottom-4 -left-12 h-8 w-32 bg-[color:var(--brand-red)]" />
-                <div className="absolute top-1/2 -right-8 h-6 w-6 rotate-45 bg-[color:var(--brand-gold)]" />
+                <AIVisualization />
               </div>
             </Reveal>
           </div>
@@ -355,7 +317,7 @@ function HomePage() {
 
 
       {/* PRODUCTS */}
-      <section className="relative py-10 sm:py-14 bg-[color:var(--surface)]">
+      <section className="relative py-20 sm:py-28 bg-[color:var(--surface)]">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <SectionHeader
             eyebrow="Products"
@@ -363,27 +325,66 @@ function HomePage() {
             description="Every product is built in-house — from the AI model to the field officer's app."
           />
           <div className="mt-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {products.map((p, i) => (
-              <Reveal key={p.slug} delay={i * 0.06}>
-                <div className="group h-full rounded-3xl border border-border bg-card p-7 hover:shadow-[var(--shadow-elev)] hover:-translate-y-1 transition-all">
-                  <IconBadge icon={p.icon} color={p.color} size="lg" />
-                  <h3 className="mt-6 text-xl font-bold">{p.name}</h3>
-                  <div className="mt-1 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                    {p.tagline}
+            {products.map((p, i) => {
+              const accent = {
+                blue: "var(--brand-blue)",
+                green: "var(--brand-green)",
+                gold: "var(--brand-gold)",
+                red: "var(--brand-red)",
+              }[p.color];
+              return (
+                <Reveal key={p.slug} delay={i * 0.06}>
+                  <div className="group relative h-full overflow-hidden rounded-3xl border border-slate-200 bg-white p-7 shadow-sm hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+                    {/* Glow */}
+                    <div
+                      className="absolute -top-24 -right-24 h-56 w-56 rounded-full opacity-0 group-hover:opacity-100 blur-3xl transition-opacity duration-500"
+                      style={{ background: accent }}
+                    />
+                    {/* Accent bar */}
+                    <div
+                      className="absolute top-0 left-0 h-1 w-16 group-hover:w-full transition-[width] duration-500"
+                      style={{ background: accent }}
+                    />
+                    <div className="relative flex items-start justify-between">
+                      <IconBadge icon={p.icon} color={p.color} size="lg" />
+                      <span
+                        className="text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded ring-1"
+                        style={{
+                          color: accent,
+                          background: `color-mix(in oklab, ${accent} 10%, transparent)`,
+                          boxShadow: `inset 0 0 0 1px color-mix(in oklab, ${accent} 25%, transparent)`,
+                        }}
+                      >
+                        0{i + 1}
+                      </span>
+                    </div>
+                    <h3 className="relative mt-6 text-xl font-bold">{p.name}</h3>
+                    <div className="relative mt-1 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                      {p.tagline}
+                    </div>
+                    <p className="relative mt-3 text-sm text-muted-foreground leading-relaxed">
+                      {p.description}
+                    </p>
+                    <div className="relative mt-6 flex flex-wrap gap-1.5">
+                      {p.features.slice(0, 3).map((f) => (
+                        <span key={f.title} className="inline-flex items-center gap-1 rounded-md bg-slate-100 px-2 py-1 text-[10px] font-semibold text-slate-700">
+                          <f.icon className="h-3 w-3" /> {f.title}
+                        </span>
+                      ))}
+                    </div>
+                    <Link
+                      to="/products"
+                      className="relative mt-6 inline-flex items-center gap-1.5 text-sm font-bold uppercase tracking-wider group-hover:gap-3 transition-all"
+                      style={{ color: accent }}
+                    >
+                      Learn more <ArrowRight className="h-4 w-4" />
+                    </Link>
                   </div>
-                  <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
-                    {p.description}
-                  </p>
-                  <Link
-                    to="/products"
-                    className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-primary group-hover:gap-2.5 transition-all"
-                  >
-                    Learn more <ArrowRight className="h-4 w-4" />
-                  </Link>
-                </div>
-              </Reveal>
-            ))}
+                </Reveal>
+              );
+            })}
           </div>
+
         </div>
       </section>
 

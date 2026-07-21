@@ -1,4 +1,4 @@
-﻿import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { PageHero } from "@/components/site/PageHero";
 import { Reveal } from "@/components/site/Reveal";
@@ -31,7 +31,7 @@ function IndustriesPage() {
         description="From police command rooms to hospital wards to factory floors — Ehnovate platforms are engineered for the real world."
       />
 
-      <section className="py-8 sm:py-12">
+      <section className="py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {industries.map((ind, i) => (
             <Reveal key={ind.name} delay={i * 0.05}>

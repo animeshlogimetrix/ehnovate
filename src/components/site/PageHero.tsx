@@ -13,7 +13,8 @@ export function PageHero({
   children?: ReactNode;
 }) {
   return (
-    <section className="relative pt-24 pb-8 sm:pt-28 sm:pb-12 overflow-hidden hero-bg">
+    <section className="relative pt-32 pb-16 sm:pt-40 sm:pb-24 overflow-hidden hero-bg">
+      <div className="absolute inset-0 grid-pattern opacity-70 pointer-events-none" />
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 text-center">
         {eyebrow && (
           <Reveal>
