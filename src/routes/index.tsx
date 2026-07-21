@@ -30,6 +30,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { AIVisualization } from "@/components/site/AIVisualization";
+import { HeroBackground } from "@/components/site/HeroBackground";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -90,27 +92,14 @@ const testimonials = [
 function HomePage() {
   return (
     <SiteLayout>
-      {/* HERO — Kinetic geometric layers */}
-      <section className="relative overflow-hidden pt-28 sm:pt-36 pb-24 sm:pb-32 bg-[color:var(--surface)]">
-        {/* Skewed diagonal band */}
-        <div
-          className="absolute top-0 right-0 h-full w-2/3 pointer-events-none"
-          style={{
-            background:
-              "linear-gradient(to bottom left, color-mix(in oklab, var(--brand-blue) 12%, transparent), transparent 70%)",
-            transform: "skewX(12deg) translateX(25%)",
-          }}
-        />
-        {/* Green blur pool */}
-        <div className="absolute -bottom-24 -left-24 h-[26rem] w-[26rem] rounded-full bg-[color:var(--brand-green)]/10 blur-3xl pointer-events-none" />
-        {/* Small floating gold diamond */}
-        <div className="absolute top-24 right-[22%] h-4 w-4 rotate-45 bg-[color:var(--brand-gold)]" />
-        <div className="absolute bottom-32 left-[18%] h-3 w-3 rotate-45 bg-[color:var(--brand-red)]/70" />
+      {/* Hero Section */}
+      <section className="relative overflow-hidden bg-slate-50 pt-24 pb-20 lg:pt-32 lg:pb-28 min-h-[90vh] flex flex-col justify-center">
+        <HeroBackground />
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left — copy */}
-            <div>
+            <div className="relative z-10">
               <Reveal>
                 <span className="eyebrow-bar">
                   <Sparkles className="mr-2 h-3.5 w-3.5" />
@@ -153,34 +142,7 @@ function HomePage() {
             {/* Right — geometric tile */}
             <Reveal delay={0.2}>
               <div className="relative mx-auto w-full max-w-md lg:max-w-none">
-                <div className="relative aspect-[4/3] border-8 border-white shadow-2xl overflow-hidden bg-[color:var(--ink)]">
-                  {/* Image Background */}
-                  <img src="/owl-ai-dashboard.png" alt="OWL-AI Dashboard" className="absolute inset-0 h-full w-full object-cover" />
-                  <div className="absolute inset-0 bg-[color:var(--brand-blue)] mix-blend-multiply opacity-20" />
-                  {/* KPI badge */}
-                  <div className="absolute bottom-6 right-6 bg-white px-6 py-4 shadow-xl border-t-4 border-[color:var(--brand-green)]">
-                    <div className="text-3xl font-bold text-foreground leading-none">
-                      99.9%
-                    </div>
-                    <div className="mt-1 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
-                      Uptime Guaranteed
-                    </div>
-                  </div>
-                  {/* Live indicator */}
-                  <div className="absolute top-6 left-6 inline-flex items-center gap-2 bg-white/95 px-3 py-1.5">
-                    <span className="relative flex h-2 w-2">
-                      <span className="absolute inset-0 animate-ping rounded-full bg-[color:var(--brand-green)] opacity-75" />
-                      <span className="relative inline-flex h-2 w-2 rounded-full bg-[color:var(--brand-green)]" />
-                    </span>
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-foreground">
-                      OWL-AI · Live
-                    </span>
-                  </div>
-                </div>
-                {/* Floating geometric shapes */}
-                <div className="absolute -top-6 -right-6 h-24 w-24 bg-[color:var(--brand-green)] mix-blend-multiply opacity-80" />
-                <div className="absolute -bottom-4 -left-12 h-8 w-32 bg-[color:var(--brand-red)]" />
-                <div className="absolute top-1/2 -right-8 h-6 w-6 rotate-45 bg-[color:var(--brand-gold)]" />
+                <AIVisualization />
               </div>
             </Reveal>
           </div>
