@@ -34,14 +34,14 @@ function ContactPage() {
         description="Talk to our team about a pilot, a deployment or a strategic partnership."
       />
 
-      <section className="py-16 sm:py-24">
+      <section className="py-8 sm:py-12">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-8">
           <Reveal>
             <div className="space-y-4">
               {[
-                { icon: MapPin, label: "Headquarters", value: "Pune, Maharashtra, India" },
-                { icon: Mail, label: "Email", value: "hello@ehnovate.tech" },
-                { icon: Phone, label: "Phone", value: "+91 000 000 0000" },
+                { icon: MapPin, label: "Headquarters", value: "907, New Delhi House, 27, Barakhamba Road, Connaught Place, New Delhi - 110001." },
+                { icon: Mail, label: "Email", value: "director.bdm@ehnovate.com" },
+                { icon: Phone, label: "Phone", value: "+91-7275600003" },
               ].map((c, i) => (
                 <div key={c.label} className="rounded-2xl border border-border bg-card p-6 flex items-start gap-4">
                   <IconBadge icon={c.icon} color={["blue", "green", "gold"][i] as "blue" | "green" | "gold"} />

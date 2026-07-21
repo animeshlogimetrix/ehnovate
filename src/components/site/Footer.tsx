@@ -56,17 +56,17 @@ export function Footer() {
             <ul className="mt-4 space-y-3 text-sm text-white/70">
               <li className="flex gap-3">
                 <MapPin className="h-4 w-4 mt-0.5 shrink-0 text-[color:var(--brand-gold)]" />
-                <span>Pune, Maharashtra, India</span>
+                <span>907, New Delhi House, 27, Barakhamba Road, Connaught Place, New Delhi - 110001.</span>
               </li>
               <li className="flex gap-3">
                 <Mail className="h-4 w-4 mt-0.5 shrink-0 text-[color:var(--brand-gold)]" />
-                <a href="mailto:hello@ehnovate.tech" className="hover:text-white">
-                  hello@ehnovate.tech
+                <a href="mailto:director.bdm@ehnovate.com" className="hover:text-white">
+                  director.bdm@ehnovate.com
                 </a>
               </li>
               <li className="flex gap-3">
                 <Phone className="h-4 w-4 mt-0.5 shrink-0 text-[color:var(--brand-gold)]" />
-                <span>+91 000 000 0000</span>
+                <span>+91-7275600003</span>
               </li>
             </ul>
           </div>

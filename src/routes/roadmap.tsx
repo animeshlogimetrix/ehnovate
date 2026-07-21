@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+﻿import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { PageHero } from "@/components/site/PageHero";
 import { Reveal } from "@/components/site/Reveal";
@@ -33,7 +33,7 @@ function RoadmapPage() {
         description="From deployed foundations today to nationwide platform expansion — the path forward."
       />
 
-      <section className="py-16 sm:py-24">
+      <section className="py-8 sm:py-12">
         <div className="mx-auto max-w-5xl px-4 sm:px-6">
           <div className="relative">
             <div className="absolute left-4 sm:left-1/2 top-0 bottom-0 w-0.5 -translate-x-1/2 bg-gradient-to-b from-[color:var(--brand-blue)] via-[color:var(--brand-green)] to-[color:var(--brand-gold)]" />

@@ -91,7 +91,7 @@ function HomePage() {
   return (
     <SiteLayout>
       {/* HERO — Kinetic geometric layers */}
-      <section className="relative overflow-hidden pt-28 sm:pt-36 pb-24 sm:pb-32 bg-[color:var(--surface)]">
+      <section className="relative overflow-hidden pt-20 sm:pt-24 pb-12 sm:pb-16 bg-[color:var(--surface)]">
         {/* Skewed diagonal band */}
         <div
           className="absolute top-0 right-0 h-full w-2/3 pointer-events-none"
@@ -153,21 +153,10 @@ function HomePage() {
             {/* Right — geometric tile */}
             <Reveal delay={0.2}>
               <div className="relative mx-auto w-full max-w-md lg:max-w-none">
-                <div className="relative aspect-square border-8 border-white shadow-2xl overflow-hidden bg-[color:var(--ink)]">
-                  {/* grid pattern */}
-                  <div className="absolute inset-0 grid-pattern opacity-40" />
-                  <div className="absolute inset-0 bg-[color:var(--brand-blue)] mix-blend-multiply opacity-70" />
-                  {/* nested rotated squares */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <motion.div
-                      initial={{ rotate: 0 }}
-                      animate={{ rotate: 360 }}
-                      transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
-                      className="h-4/5 w-4/5 border-2 border-white/30 flex items-center justify-center"
-                    >
-                      <div className="h-4/5 w-4/5 border-2 border-[color:var(--brand-gold)]/60" />
-                    </motion.div>
-                  </div>
+                <div className="relative aspect-[4/3] border-8 border-white shadow-2xl overflow-hidden bg-[color:var(--ink)]">
+                  {/* Image Background */}
+                  <img src="/owl-ai-dashboard.png" alt="OWL-AI Dashboard" className="absolute inset-0 h-full w-full object-cover" />
+                  <div className="absolute inset-0 bg-[color:var(--brand-blue)] mix-blend-multiply opacity-20" />
                   {/* KPI badge */}
                   <div className="absolute bottom-6 right-6 bg-white px-6 py-4 shadow-xl border-t-4 border-[color:var(--brand-green)]">
                     <div className="text-3xl font-bold text-foreground leading-none">
@@ -199,7 +188,7 @@ function HomePage() {
       </section>
 
       {/* COMPANY OVERVIEW */}
-      <section className="relative py-20 sm:py-28">
+      <section className="relative py-10 sm:py-14">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
@@ -263,7 +252,7 @@ function HomePage() {
       </section>
 
       {/* VISION & MISSION */}
-      <section className="relative py-20 sm:py-28 bg-[color:var(--surface)]">
+      <section className="relative py-10 sm:py-14 bg-[color:var(--surface)]">
         <div className="absolute inset-0 mesh-bg opacity-40 pointer-events-none" />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
           <SectionHeader
@@ -307,7 +296,7 @@ function HomePage() {
       </section>
 
       {/* SERVICES / PILLARS — Edge-to-edge kinetic grid */}
-      <section className="relative py-20 sm:py-28 bg-white">
+      <section className="relative py-10 sm:py-14 bg-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 mb-16">
             <div className="max-w-2xl">
@@ -366,7 +355,7 @@ function HomePage() {
 
 
       {/* PRODUCTS */}
-      <section className="relative py-20 sm:py-28 bg-[color:var(--surface)]">
+      <section className="relative py-10 sm:py-14 bg-[color:var(--surface)]">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <SectionHeader
             eyebrow="Products"
@@ -399,7 +388,7 @@ function HomePage() {
       </section>
 
       {/* INDUSTRIES */}
-      <section className="relative py-20 sm:py-28">
+      <section className="relative py-10 sm:py-14">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <SectionHeader
             eyebrow="Industries"
@@ -422,7 +411,7 @@ function HomePage() {
       </section>
 
       {/* WHY US */}
-      <section className="relative py-20 sm:py-28 bg-[color:var(--ink)] text-white overflow-hidden">
+      <section className="relative py-10 sm:py-14 bg-[color:var(--ink)] text-white overflow-hidden">
         <div className="absolute inset-0 mesh-bg opacity-30 pointer-events-none" />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
           <div className="max-w-3xl mx-auto text-center">
@@ -452,7 +441,7 @@ function HomePage() {
       </section>
 
       {/* ACHIEVEMENTS */}
-      <section className="relative py-20 sm:py-28">
+      <section className="relative py-10 sm:py-14">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <SectionHeader
             eyebrow="Achievements"
@@ -475,7 +464,7 @@ function HomePage() {
       </section>
 
       {/* ROADMAP */}
-      <section className="relative py-20 sm:py-28 bg-[color:var(--surface)]">
+      <section className="relative py-10 sm:py-14 bg-[color:var(--surface)]">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <SectionHeader
             eyebrow="Roadmap"
@@ -521,7 +510,7 @@ function HomePage() {
       </section>
 
       {/* TESTIMONIALS */}
-      <section className="relative py-20 sm:py-28">
+      <section className="relative py-10 sm:py-14">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <SectionHeader
             eyebrow="Testimonials"
@@ -553,7 +542,7 @@ function HomePage() {
       </section>
 
       {/* FAQ */}
-      <section className="relative py-20 sm:py-28 bg-[color:var(--surface)]">
+      <section className="relative py-10 sm:py-14 bg-[color:var(--surface)]">
         <div className="mx-auto max-w-3xl px-4 sm:px-6">
           <SectionHeader eyebrow="FAQ" title="Frequently asked questions" />
           <Reveal>
@@ -578,7 +567,7 @@ function HomePage() {
       </section>
 
       {/* CTA */}
-      <section className="relative py-20 sm:py-28">
+      <section className="relative py-10 sm:py-14">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <div className="relative overflow-hidden rounded-3xl bg-[color:var(--ink)] text-white p-10 sm:p-16 shadow-[var(--shadow-elev)]">
             <div className="absolute inset-0 mesh-bg opacity-40 pointer-events-none" />

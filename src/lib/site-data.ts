@@ -74,6 +74,7 @@ export type Product = {
   description: string;
   icon: LucideIcon;
   color: "blue" | "green" | "gold" | "red";
+  image?: string;
   features: { icon: LucideIcon; title: string; description: string }[];
 };
 
@@ -86,6 +87,7 @@ export const products: Product[] = [
       "OWL-AI detects, classifies and responds to security threats instantly — transforming passive monitoring into proactive intelligence.",
     icon: Eye,
     color: "blue",
+    image: "/owl-ai-dashboard.png",
     features: [
       { icon: Camera, title: "Real-Time AI Detection", description: "Weapon recognition, suspicious behaviour detection and missing person identification." },
       { icon: Layers, title: "Intelligent Classification", description: "Automatic threat severity labelling with rule-based escalation logic." },
@@ -103,6 +105,7 @@ export const products: Product[] = [
       "Secure-Link unifies fragmented records into one intelligence network — helping analysts uncover hidden relationships and act on a single, trusted source of truth.",
     icon: LinkIcon,
     color: "green",
+    image: "/carlos-muza-hpjSkU2UYSU-unsplash.jpg",
     features: [
       { icon: LinkIcon, title: "Intelligent Linking & Correlation", description: "Automated relationship discovery across exact, fuzzy and phonetic engines." },
       { icon: UserCheck, title: "Face Recognition & Biometric Search", description: "Offline face-recognition pipeline with ranked match retrieval." },
@@ -120,6 +123,7 @@ export const products: Product[] = [
       "Bringing the same real-time, AI-assisted philosophy behind OWL-AI and Secure-Link to everyday business management.",
     icon: Briefcase,
     color: "gold",
+    image: "/erp-dashboard.jpg",
     features: [
       { icon: TrendingUp, title: "Finance & Accounting", description: "Budgets, invoicing, ledgers and real-time financial reporting." },
       { icon: Users, title: "HR & Payroll", description: "Employee records, attendance, payroll and performance tracking." },
@@ -137,6 +141,7 @@ export const products: Product[] = [
       "End-to-end automated preventive care — Bluetooth clinical devices, face-verification authentication and offline-capable workflows.",
     icon: HeartPulse,
     color: "red",
+    image: "/pcms-dashboard.png",
     features: [
       { icon: HeartPulse, title: "Bluetooth Clinical Devices", description: "Height, weight and vitals capture with long battery life." },
       { icon: UserCheck, title: "Face-Verification Auth", description: "Secure identity binding for every measurement and record." },
