@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+﻿import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { PageHero } from "@/components/site/PageHero";
 import { Reveal } from "@/components/site/Reveal";
@@ -31,7 +31,7 @@ function ProductsPage() {
         description="Every Ehnovate product is built in-house — from the AI model to the field officer's app — for real deployments, not lab demos."
       />
 
-      <section className="py-16 sm:py-24">
+      <section className="py-8 sm:py-12">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 space-y-10">
           {products.map((p, idx) => (
             <Reveal key={p.slug}>
@@ -53,6 +53,11 @@ function ProductsPage() {
                     <p className="mt-6 text-muted-foreground leading-relaxed">
                       {p.description}
                     </p>
+                    {p.image && (
+                      <div className="mt-8 overflow-hidden rounded-2xl border border-border shadow-sm">
+                        <img src={p.image} alt={p.name} className="w-full h-auto object-cover aspect-video" />
+                      </div>
+                    )}
                   </div>
                   <div className="bg-[color:var(--surface)] p-8 sm:p-10 border-t lg:border-t-0 lg:border-l border-border">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+﻿import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { PageHero } from "@/components/site/PageHero";
 import { SectionHeader } from "@/components/site/SectionHeader";
@@ -42,7 +42,7 @@ function TechnologyPage() {
         description="A unified stack that turns raw video and records into decisions — in seconds, not minutes."
       />
 
-      <section className="py-16 sm:py-24">
+      <section className="py-8 sm:py-12">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <SectionHeader eyebrow="OWL-AI Process Flow" title="How OWL-AI works" />
           <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -71,7 +71,7 @@ function TechnologyPage() {
         </div>
       </section>
 
-      <section className="py-16 sm:py-24 bg-[color:var(--surface)]">
+      <section className="py-8 sm:py-12 bg-[color:var(--surface)]">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <SectionHeader eyebrow="Stack" title="Technology & competitive advantage" />
           <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
