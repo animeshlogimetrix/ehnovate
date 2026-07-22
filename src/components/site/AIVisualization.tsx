@@ -169,19 +169,19 @@ export function AIVisualization() {
             <motion.div 
               animate={{ y: [-5, 5, -5] }}
               transition={{ repeat: Infinity, duration: 6, ease: "easeInOut", delay: mod.delay }}
-              className="relative p-4 rounded-xl border border-white/10 bg-slate-900/80 backdrop-blur-xl hover:border-cyan-400/60 hover:bg-slate-900/95 hover:shadow-[0_0_30px_rgba(6,182,212,0.3)] transition-all duration-300 w-48 overflow-hidden"
+              className="relative p-2.5 sm:p-4 rounded-xl border border-white/10 bg-slate-900/80 backdrop-blur-xl hover:border-cyan-400/60 hover:bg-slate-900/95 hover:shadow-[0_0_30px_rgba(6,182,212,0.3)] transition-all duration-300 w-32 sm:w-48 overflow-hidden"
             >
               {/* Header */}
-              <div className="flex items-center gap-3">
-                <div className="h-8 w-8 rounded-lg bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center shrink-0 group-hover/card:bg-cyan-500/30 group-hover/card:scale-110 transition-all duration-300">
-                  <mod.icon className="h-4 w-4 text-cyan-400" />
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="h-6 w-6 sm:h-8 sm:w-8 rounded-lg bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center shrink-0 group-hover/card:bg-cyan-500/30 group-hover/card:scale-110 transition-all duration-300">
+                  <mod.icon className="h-3 w-3 sm:h-4 sm:w-4 text-cyan-400" />
                 </div>
                 <div className="overflow-hidden">
-                  <div className="text-[11px] font-bold text-white uppercase tracking-wider truncate group-hover/card:text-cyan-300 transition-colors">{mod.title}</div>
-                  <div className="text-[9px] text-cyan-400/80 font-mono flex items-center gap-1.5 mt-0.5">
-                    <span className="relative flex h-1.5 w-1.5">
+                  <div className="text-[9px] sm:text-[11px] font-bold text-white uppercase tracking-wider truncate group-hover/card:text-cyan-300 transition-colors">{mod.title}</div>
+                  <div className="text-[7.5px] sm:text-[9px] text-cyan-400/80 font-mono flex items-center gap-1.5 mt-0.5">
+                    <span className="relative flex h-1 w-1 sm:h-1.5 sm:w-1.5">
                       <span className="absolute inset-0 animate-ping rounded-full bg-cyan-400 opacity-75"></span>
-                      <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-cyan-500"></span>
+                      <span className="relative inline-flex h-1 w-1 sm:h-1.5 sm:w-1.5 rounded-full bg-cyan-500"></span>
                     </span>
                     Syncing...
                   </div>
@@ -189,14 +189,14 @@ export function AIVisualization() {
               </div>
 
               {/* Expandable Live Stats on Hover */}
-              <div className="mt-0 h-0 opacity-0 group-hover/card:mt-3 group-hover/card:h-auto group-hover/card:opacity-100 transition-all duration-300 ease-in-out flex justify-between border-t border-white/10 pt-3">
+              <div className="mt-0 h-0 opacity-0 group-hover/card:mt-2.5 sm:group-hover/card:mt-3 group-hover/card:h-auto group-hover/card:opacity-100 transition-all duration-300 ease-in-out flex justify-between border-t border-white/10 pt-2 sm:pt-3">
                 <div>
-                  <div className="text-white font-mono text-[10px] font-bold">{mod.stats.stat1}</div>
-                  <div className="text-cyan-400/60 text-[8px] uppercase tracking-widest">{mod.stats.label1}</div>
+                  <div className="text-white font-mono text-[9px] sm:text-[10px] font-bold">{mod.stats.stat1}</div>
+                  <div className="text-cyan-400/60 text-[7px] sm:text-[8px] uppercase tracking-widest">{mod.stats.label1}</div>
                 </div>
                 <div className="text-right">
-                  <div className="text-white font-mono text-[10px] font-bold">{mod.stats.stat2}</div>
-                  <div className="text-cyan-400/60 text-[8px] uppercase tracking-widest">{mod.stats.label2}</div>
+                  <div className="text-white font-mono text-[9px] sm:text-[10px] font-bold">{mod.stats.stat2}</div>
+                  <div className="text-cyan-400/60 text-[7px] sm:text-[8px] uppercase tracking-widest">{mod.stats.label2}</div>
                 </div>
               </div>
               
@@ -210,38 +210,38 @@ export function AIVisualization() {
       <div className="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-[24px] pointer-events-none" />
       
       {/* Top Left System Info */}
-      <div className="absolute top-6 left-6 flex flex-col gap-1 pointer-events-none">
-        <div className="text-[10px] font-mono text-cyan-400/50 flex items-center gap-2">
-          <Wifi className="h-3 w-3" />
+      <div className="absolute top-4 left-4 sm:top-6 sm:left-6 flex flex-col gap-1 pointer-events-none">
+        <div className="text-[8px] sm:text-[10px] font-mono text-cyan-400/50 flex items-center gap-1.5 sm:gap-2">
+          <Wifi className="h-2.5 w-2.5 sm:h-3 sm:w-3" />
           SYS_ID: OWL-009A
         </div>
-        <div className="text-[10px] font-mono text-cyan-400/50 pl-5">UPTIME: 99.99%</div>
+        <div className="text-[8px] sm:text-[10px] font-mono text-cyan-400/50 pl-4 sm:pl-5">UPTIME: 99.99%</div>
       </div>
 
       {/* Top Right Data Activity Bars */}
-      <div className="absolute top-6 right-6 flex gap-1 opacity-50 pointer-events-none items-end h-6">
-        <div className="w-1.5 bg-cyan-400 animate-[pulse_1s_ease-in-out_infinite]" style={{ height: '40%', animationDelay: '0ms' }} />
-        <div className="w-1.5 bg-cyan-400 animate-[pulse_1.2s_ease-in-out_infinite]" style={{ height: '80%', animationDelay: '150ms' }} />
-        <div className="w-1.5 bg-cyan-400 animate-[pulse_0.8s_ease-in-out_infinite]" style={{ height: '30%', animationDelay: '300ms' }} />
-        <div className="w-1.5 bg-cyan-400 animate-[pulse_1.5s_ease-in-out_infinite]" style={{ height: '100%', animationDelay: '450ms' }} />
-        <div className="w-1.5 bg-cyan-400 animate-[pulse_1.1s_ease-in-out_infinite]" style={{ height: '60%', animationDelay: '600ms' }} />
+      <div className="absolute top-4 right-4 sm:top-6 sm:right-6 flex gap-0.5 sm:gap-1 opacity-50 pointer-events-none items-end h-4 sm:h-6">
+        <div className="w-1 sm:w-1.5 bg-cyan-400 animate-[pulse_1s_ease-in-out_infinite]" style={{ height: '40%', animationDelay: '0ms' }} />
+        <div className="w-1 sm:w-1.5 bg-cyan-400 animate-[pulse_1.2s_ease-in-out_infinite]" style={{ height: '80%', animationDelay: '150ms' }} />
+        <div className="w-1 sm:w-1.5 bg-cyan-400 animate-[pulse_0.8s_ease-in-out_infinite]" style={{ height: '30%', animationDelay: '300ms' }} />
+        <div className="w-1 sm:w-1.5 bg-cyan-400 animate-[pulse_1.5s_ease-in-out_infinite]" style={{ height: '100%', animationDelay: '450ms' }} />
+        <div className="w-1 sm:w-1.5 bg-cyan-400 animate-[pulse_1.1s_ease-in-out_infinite]" style={{ height: '60%', animationDelay: '600ms' }} />
       </div>
 
       {/* Bottom Status Bar */}
-      <div className="absolute bottom-6 left-6 right-6 flex justify-between items-end pointer-events-none">
-        <div className="inline-flex items-center gap-2.5 bg-slate-950/90 backdrop-blur-md px-4 py-2 rounded-full border border-cyan-500/30 shadow-[0_0_20px_rgba(6,182,212,0.2)]">
-          <span className="relative flex h-2 w-2">
+      <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-3 pointer-events-none">
+        <div className="inline-flex items-center gap-2 sm:gap-2.5 bg-slate-950/90 backdrop-blur-md px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border border-cyan-500/30 shadow-[0_0_20px_rgba(6,182,212,0.2)]">
+          <span className="relative flex h-1.5 w-1.5 sm:h-2 sm:w-2">
             <span className="absolute inset-0 animate-ping rounded-full bg-cyan-400 opacity-75" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-cyan-500 shadow-[0_0_8px_rgba(6,182,212,1)]" />
+            <span className="relative inline-flex h-1.5 w-1.5 sm:h-2 sm:w-2 rounded-full bg-cyan-500 shadow-[0_0_8px_rgba(6,182,212,1)]" />
           </span>
-          <span className="text-[10px] font-bold uppercase tracking-widest text-cyan-400">
-            Pipeline Active & Secured
+          <span className="text-[8px] sm:text-[10px] font-bold uppercase tracking-widest text-cyan-400">
+            Pipeline Active
           </span>
         </div>
         
-        <div className="flex flex-col items-end bg-slate-950/60 backdrop-blur-sm px-3 py-1.5 rounded-lg border border-white/5">
-          <div className="text-xs font-bold text-white mb-0.5">14,204 / sec</div>
-          <div className="text-[9px] font-mono text-cyan-400/60 uppercase">Data Throughput</div>
+        <div className="flex flex-col items-end sm:items-end bg-slate-950/60 backdrop-blur-sm px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg border border-white/5 ml-auto sm:ml-0">
+          <div className="text-[10px] sm:text-xs font-bold text-white mb-0.5">14,204 / sec</div>
+          <div className="text-[7.5px] sm:text-[9px] font-mono text-cyan-400/60 uppercase">Data Throughput</div>
         </div>
       </div>
     </div>
