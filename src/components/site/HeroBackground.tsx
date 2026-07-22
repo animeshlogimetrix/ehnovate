@@ -228,19 +228,6 @@ export function HeroBackground() {
         
       </motion.div>
 
-      {/* --- REALISTIC PROTOTYPE ROBOT (Bottom Right, pointing at OWL-AI) --- */}
-      <motion.div 
-        style={{ x: parallaxFrontX, y: parallaxFrontY }} 
-        className="absolute bottom-[-10%] right-[-5%] w-[450px] lg:w-[550px] h-auto pointer-events-none mix-blend-multiply opacity-100 z-[50]"
-      >
-        <motion.img 
-          src="/assets/images/robot.png" 
-          alt="AI Robot Prototype"
-          className="w-auto h-full object-contain origin-bottom-right"
-          animate={{ y: [0, -10, 0] }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-        />
-      </motion.div>
 
       {/* Invisible interactive area for mouse tracking to bubble up safely */}
       <div 

@@ -93,45 +93,41 @@ function HomePage() {
   return (
     <SiteLayout>
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-slate-50 pt-24 pb-20 lg:pt-32 lg:pb-28 min-h-[90vh] flex flex-col justify-center">
+      <section className="relative overflow-hidden bg-slate-50 pt-24 pb-16 sm:pb-20 lg:pt-32 lg:pb-28 min-h-[100vh] sm:min-h-[90vh] flex flex-col justify-center">
         <HeroBackground />
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left — copy */}
-            <div className="relative z-10">
-              <Reveal>
-                <span className="eyebrow-bar">
-                  <Sparkles className="mr-2 h-3.5 w-3.5" />
-                  Innovation in Motion · 2026
-                </span>
-              </Reveal>
+            <div className="relative z-10 text-center lg:text-left flex flex-col items-center lg:items-start">
+
               <Reveal delay={0.05}>
-                <h1 className="mt-6 text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight text-foreground">
+                <h1 className="mt-6 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] md:leading-[1.05] tracking-tight text-foreground">
                   Intelligent systems for a{" "}
+                  <br className="hidden sm:block lg:hidden" />
                   <span className="text-[color:var(--brand-blue)]">safer,</span>{" "}
                   <span className="text-[color:var(--brand-green)]">smarter</span>{" "}
                   world.
                 </h1>
               </Reveal>
               <Reveal delay={0.1}>
-                <p className="mt-6 max-w-xl text-lg sm:text-xl text-muted-foreground leading-relaxed">
+                <p className="mt-6 max-w-xl mx-auto lg:mx-0 text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed">
                   Ehnovate Technologies delivers high-performance AI, security &
                   enterprise platforms that help institutions see faster, decide
                   sooner, and act with confidence.
                 </p>
               </Reveal>
               <Reveal delay={0.15}>
-                <div className="mt-10 flex flex-wrap items-center gap-5">
+                <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-stretch sm:items-center w-full sm:w-auto gap-4 sm:gap-5">
                   <Link
                     to="/products"
-                    className="hard-shadow-gold hard-shadow-gold-hover inline-flex items-center gap-2 bg-[color:var(--brand-blue)] px-8 py-4 text-sm font-bold uppercase tracking-wider text-white"
+                    className="hard-shadow-gold hard-shadow-gold-hover flex justify-center items-center gap-2 bg-[color:var(--brand-blue)] px-6 sm:px-8 py-3.5 sm:py-4 text-sm font-bold uppercase tracking-wider text-white"
                   >
                     Explore Products <ArrowRight className="h-4 w-4" />
                   </Link>
                   <Link
                     to="/contact"
-                    className="inline-flex items-center gap-2 border-2 border-[color:var(--brand-blue)] bg-white px-8 py-4 text-sm font-bold uppercase tracking-wider text-[color:var(--brand-blue)] hover:bg-slate-50 transition"
+                    className="flex justify-center items-center gap-2 border-2 border-[color:var(--brand-blue)] bg-white px-6 sm:px-8 py-3.5 sm:py-4 text-sm font-bold uppercase tracking-wider text-[color:var(--brand-blue)] hover:bg-slate-50 transition"
                   >
                     <Play className="h-4 w-4" /> Request a Demo
                   </Link>
