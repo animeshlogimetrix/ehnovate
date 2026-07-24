@@ -6,6 +6,13 @@
 		wowAnimation();
 	});
 
+	if (document.readyState === 'complete') {
+		setTimeout(function() {
+			preloader();
+			wowAnimation();
+		}, 100);
+	}
+
 	/*------------------------------------------
 	= preloader
 	-------------------------------------------*/
