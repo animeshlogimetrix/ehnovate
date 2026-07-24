@@ -38,6 +38,7 @@ export type Pillar = {
   description: string;
   tag: string;
   color: "blue" | "green" | "gold";
+  image?: string;
 };
 
 export const pillars: Pillar[] = [
@@ -48,6 +49,7 @@ export const pillars: Pillar[] = [
       "OWL-AI: real-time computer vision, threat detection and instant alerting for people, places and events.",
     tag: "Flagship · OWL-AI",
     color: "blue",
+    image: "/pillar-1.png",
   },
   {
     icon: LinkIcon,
@@ -56,14 +58,16 @@ export const pillars: Pillar[] = [
       "Secure-Link: unifying records, uncovering hidden relationships and visualising intelligence networks.",
     tag: "Flagship · Secure-Link",
     color: "green",
+    image: "/pillar-2.png",
   },
   {
     icon: Briefcase,
-    title: "Enterprise Business Systems",
+    title: "Enterprise Operations",
     description:
-      "Ehnovate ERP Suite: finance, HR, inventory and CRM unified on one secure operations platform.",
-    tag: "In Development",
+      "Flow-State: optimising workflows, resource allocation and compliance through predictive analytics.",
+    tag: "Enterprise · Flow-State",
     color: "gold",
+    image: "/pillar-3.png",
   },
 ];
 
@@ -87,7 +91,7 @@ export const products: Product[] = [
       "OWL-AI detects, classifies and responds to security threats instantly — transforming passive monitoring into proactive intelligence.",
     icon: Eye,
     color: "blue",
-    image: "/owl-ai-dashboard.png",
+    image: "/product-1.png",
     features: [
       { icon: Camera, title: "Real-Time AI Detection", description: "Weapon recognition, suspicious behaviour detection and missing person identification." },
       { icon: Layers, title: "Intelligent Classification", description: "Automatic threat severity labelling with rule-based escalation logic." },
@@ -105,7 +109,7 @@ export const products: Product[] = [
       "Secure-Link unifies fragmented records into one intelligence network — helping analysts uncover hidden relationships and act on a single, trusted source of truth.",
     icon: LinkIcon,
     color: "green",
-    image: "/carlos-muza-hpjSkU2UYSU-unsplash.jpg",
+    image: "/product-2.png",
     features: [
       { icon: LinkIcon, title: "Intelligent Linking & Correlation", description: "Automated relationship discovery across exact, fuzzy and phonetic engines." },
       { icon: UserCheck, title: "Face Recognition & Biometric Search", description: "Offline face-recognition pipeline with ranked match retrieval." },
@@ -123,7 +127,7 @@ export const products: Product[] = [
       "Bringing the same real-time, AI-assisted philosophy behind OWL-AI and Secure-Link to everyday business management.",
     icon: Briefcase,
     color: "gold",
-    image: "/erp-dashboard.jpg",
+    image: "/product-3.png",
     features: [
       { icon: TrendingUp, title: "Finance & Accounting", description: "Budgets, invoicing, ledgers and real-time financial reporting." },
       { icon: Users, title: "HR & Payroll", description: "Employee records, attendance, payroll and performance tracking." },
@@ -141,7 +145,7 @@ export const products: Product[] = [
       "End-to-end automated preventive care — Bluetooth clinical devices, face-verification authentication and offline-capable workflows.",
     icon: HeartPulse,
     color: "red",
-    image: "/pcms-dashboard.png",
+    image: "/product-4.png",
     features: [
       { icon: HeartPulse, title: "Bluetooth Clinical Devices", description: "Height, weight and vitals capture with long battery life." },
       { icon: UserCheck, title: "Face-Verification Auth", description: "Secure identity binding for every measurement and record." },
@@ -159,6 +163,7 @@ export const products: Product[] = [
       "Refurbished imaging systems, portable diagnostics and AI-driven health platforms — engineered for accessible, affordable care.",
     icon: Hospital,
     color: "blue",
+    image: "/healthcare-solutions.jpg",
     features: [
       { icon: Hospital, title: "Refurbished Imaging", description: "MRI, CT and Cathlab systems at 30–50% lower cost." },
       { icon: ShieldCheck, title: "OEM-Equivalent Warranty", description: "Rigorously tested with full remote diagnostics support." },
@@ -174,15 +179,16 @@ export type Industry = {
   icon: LucideIcon;
   name: string;
   description: string;
+  image?: string;
 };
 
 export const industries: Industry[] = [
-  { icon: ShieldAlert, name: "Public Safety & Policing", description: "Real-time threat detection, incident coordination and intelligence correlation for law enforcement." },
-  { icon: Hospital, name: "Healthcare & Hospitals", description: "Preventive care systems, imaging solutions and remote diagnostics for care providers." },
-  { icon: GraduationCap, name: "Campuses & Education", description: "Secure surveillance, access control and communication for schools and universities." },
-  { icon: Factory, name: "Industrial & Manufacturing", description: "Site safety, asset protection and enterprise operations for industrial facilities." },
-  { icon: Landmark, name: "Government & Defence", description: "Air-gapped intelligence platforms with hardware-bound authentication." },
-  { icon: Building2, name: "Enterprise & Corporate", description: "ERP, CRM and integrated workplace security across distributed teams." },
+  { icon: ShieldAlert, name: "Public Safety & Policing", description: "Real-time threat detection, incident coordination and intelligence correlation for law enforcement.", image: "/industry-1.png" },
+  { icon: Hospital, name: "Healthcare & Hospitals", description: "Preventive care systems, imaging solutions and remote diagnostics for care providers.", image: "/industry-2.png" },
+  { icon: GraduationCap, name: "Campuses & Education", description: "Secure surveillance, access control and communication for schools and universities.", image: "/industry-3.png" },
+  { icon: Factory, name: "Industrial & Manufacturing", description: "Site safety, asset protection and enterprise operations for industrial facilities.", image: "/industry-4.png" },
+  { icon: Landmark, name: "Government & Defence", description: "Air-gapped intelligence platforms with hardware-bound authentication.", image: "/company-operations.png" },
+  { icon: Building2, name: "Enterprise & Corporate", description: "ERP, CRM and integrated workplace security across distributed teams.", image: "/hero-dashboard.png" },
 ];
 
 export const stats = [
