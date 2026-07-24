@@ -1,18 +1,28 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { motion, useTransform, useMotionValue, useSpring } from "framer-motion";
 
 export function HeroBackground() {
   const containerRef = useRef<HTMLDivElement>(null);
 
+  // Use a state to determine if we're on mobile to disable heavy effects
+  const [isMobile, setIsMobile] = useState(false);
+  
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  const springConfig = { damping: 50, stiffness: 100, mass: 1 };
+  const springConfig = { damping: 50, stiffness: 400, mass: 1 };
   const smoothMouseX = useSpring(mouseX, springConfig);
   const smoothMouseY = useSpring(mouseY, springConfig);
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (!containerRef.current) return;
+    if (!containerRef.current || isMobile) return;
     const rect = containerRef.current.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;
@@ -20,216 +30,263 @@ export function HeroBackground() {
     mouseY.set(y * 10);
   };
 
-  // Very subtle mouse parallax (max 10px)
-  const parallaxFrontX = useTransform(smoothMouseX, [-50, 50], [10, -10]);
-  const parallaxFrontY = useTransform(smoothMouseY, [-50, 50], [10, -10]);
+  // Parallax Layering (Layer 9: Mouse Interaction)
+  const layerBackX = useTransform(smoothMouseX, [-50, 50], [5, -5]);
+  const layerBackY = useTransform(smoothMouseY, [-50, 50], [5, -5]);
   
-  const parallaxMidX = useTransform(smoothMouseX, [-50, 50], [6, -6]);
-  const parallaxMidY = useTransform(smoothMouseY, [-50, 50], [6, -6]);
+  const layerMidX = useTransform(smoothMouseX, [-50, 50], [15, -15]);
+  const layerMidY = useTransform(smoothMouseY, [-50, 50], [15, -15]);
   
-  const parallaxBackX = useTransform(smoothMouseX, [-50, 50], [3, -3]);
-  const parallaxBackY = useTransform(smoothMouseY, [-50, 50], [3, -3]);
+  const layerFrontX = useTransform(smoothMouseX, [-50, 50], [25, -25]);
+  const layerFrontY = useTransform(smoothMouseY, [-50, 50], [25, -25]);
 
   return (
     <div 
       ref={containerRef} 
-      className="absolute inset-0 overflow-hidden pointer-events-none"
-      style={{
-        background: 'radial-gradient(circle at 50% 50%, #FFFFFF 0%, #F7FAFF 50%, #EEF5FF 100%)'
-      }}
+      className="absolute inset-0 overflow-hidden pointer-events-none bg-slate-50"
     >
-      {/* --- UNDER-DASHBOARD GLOW --- */}
-      <motion.div style={{ x: parallaxBackX, y: parallaxBackY }} className="absolute inset-0">
-        <div className="absolute top-[40%] right-[10%] w-[600px] h-[600px] bg-cyan-400/10 rounded-full blur-[100px] pointer-events-none" />
-        <div className="absolute top-[30%] right-[5%] w-[800px] h-[800px] bg-blue-500/5 rounded-full blur-[120px] pointer-events-none" />
+      {/* SVG Filters & Definitions */}
+      <svg className="absolute w-0 h-0">
+        <defs>
+          <filter id="hero-noise">
+            <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
+            <feColorMatrix type="matrix" values="1 0 0 0 0, 0 1 0 0 0, 0 0 1 0 0, 0 0 0 0.05 0" />
+          </filter>
+          <pattern id="hex-pattern" x="0" y="0" width="100" height="173.2" patternUnits="userSpaceOnUse">
+            <path d="M50 0 L100 28.8 L100 86.6 L50 115.4 L0 86.6 L0 28.8 Z" fill="none" stroke="var(--brand-blue)" strokeWidth="1"/>
+          </pattern>
+        </defs>
+      </svg>
+
+      {/* --- LAYER 1: PREMIUM BACKGROUND --- */}
+      <motion.div style={{ x: layerBackX, y: layerBackY }} className="absolute inset-0">
+        {/* Abstract Base */}
+        <div className="absolute inset-0 opacity-[0.03]" style={{ filter: 'url(#hero-noise)' }} />
+        <div className="absolute inset-0 mesh-bg opacity-30 mix-blend-multiply" />
+        
+        {/* Blurred Blobs */}
+        <div className="absolute top-[-10%] right-[-10%] w-[800px] h-[800px] bg-[color:var(--brand-blue)]/10 rounded-full blur-[120px]" />
+        <div className="absolute top-[20%] left-[-10%] w-[1000px] h-[1000px] bg-cyan-400/5 rounded-full blur-[150px]" />
+        <div className="absolute bottom-[-20%] right-[10%] w-[1200px] h-[1200px] bg-[color:var(--brand-gold)]/5 rounded-full blur-[150px]" />
+        
+        {/* Blueprint Grid */}
+        <div className="absolute inset-0 opacity-[0.15]" style={{ backgroundImage: 'linear-gradient(rgba(37,99,235,0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(37,99,235,0.2) 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
+        <div className="absolute inset-0 opacity-[0.05]" style={{ backgroundImage: 'linear-gradient(rgba(37,99,235,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(37,99,235,0.5) 1px, transparent 1px)', backgroundSize: '300px 300px' }} />
       </motion.div>
 
-      {/* --- LEFT SIDE: Huge Wireframe Sphere (35% width, 6-8% opacity, 20s rotation) --- */}
+      {/* --- LAYER 3: LARGE BLUEPRINT GRAPHICS --- */}
+      <motion.div style={{ x: layerBackX, y: layerBackY }} className="absolute inset-0 flex items-center justify-center opacity-[0.03] pointer-events-none">
+        {/* Hex Grid Background */}
+        <svg viewBox="0 0 1000 1000" className="absolute w-[150%] h-[150%] -rotate-12">
+          <rect x="0" y="0" width="1000" height="1000" fill="url(#hex-pattern)" />
+        </svg>
+      </motion.div>
+
+      {/* --- LAYER 2: AI ARCHITECTURE --- */}
+      {/* Positioned on the right side behind dashboard */}
       <motion.div 
-        style={{ x: parallaxBackX, y: parallaxBackY }}
-        className="absolute -top-[10%] -left-[10%] w-[45vw] h-[45vw] min-w-[600px] min-h-[600px] opacity-[0.15] pointer-events-none mix-blend-multiply flex items-center justify-center"
+        style={{ x: layerBackX, y: layerBackY }}
+        className="absolute top-[10%] right-[-10%] w-[1200px] h-[1200px] opacity-[0.08] pointer-events-none flex items-center justify-center mix-blend-multiply"
       >
-        <motion.svg 
-          viewBox="0 0 100 100" 
-          className="w-full h-full text-blue-800"
-          animate={{ rotate: 360 }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-        >
-           {/* Detailed wireframe globe simulation */}
-           {Array.from({ length: 24 }).map((_, i) => (
-             <ellipse key={`v-${i}`} cx="50" cy="50" rx={50 - i * 2} ry="50" fill="none" stroke="currentColor" strokeWidth="0.1" strokeDasharray="0.5 1" />
-           ))}
-           {Array.from({ length: 24 }).map((_, i) => (
-             <ellipse key={`h-${i}`} cx="50" cy="50" rx="50" ry={50 - i * 2} fill="none" stroke="currentColor" strokeWidth="0.1" strokeDasharray="0.5 1" />
-           ))}
+        <motion.svg viewBox="0 0 1000 1000" className="w-full h-full" animate={{ rotate: 360 }} transition={{ duration: 180, repeat: Infinity, ease: "linear" }}>
+          {/* Concentric Tech Rings */}
+          <circle cx="500" cy="500" r="400" fill="none" stroke="var(--brand-blue)" strokeWidth="2" strokeDasharray="10 30" />
+          <circle cx="500" cy="500" r="300" fill="none" stroke="cyan" strokeWidth="1" strokeDasharray="5 15" />
+          <circle cx="500" cy="500" r="450" fill="none" stroke="var(--brand-blue)" strokeWidth="0.5" />
+          {/* Engineering Lines & Nodes */}
+          {Array.from({length: 12}).map((_, i) => (
+             <g key={`arch-node-${i}`} transform={`rotate(${i*30} 500 500)`}>
+               <line x1="500" y1="100" x2="500" y2="50" stroke="var(--brand-blue)" strokeWidth="1" />
+               <circle cx="500" cy="50" r="4" fill="var(--brand-blue)" />
+             </g>
+          ))}
+        </motion.svg>
+        {/* Counter Rotating Ring */}
+        <motion.svg viewBox="0 0 1000 1000" className="absolute inset-0 w-full h-full" animate={{ rotate: -360 }} transition={{ duration: 240, repeat: Infinity, ease: "linear" }}>
+           <circle cx="500" cy="500" r="350" fill="none" stroke="cyan" strokeWidth="1" strokeDasharray="1 10" />
+           <circle cx="500" cy="500" r="380" fill="none" stroke="var(--brand-blue)" strokeWidth="4" strokeDasharray="100 200" />
         </motion.svg>
       </motion.div>
 
-      {/* --- NEURAL NETWORK (Connecting OWL-AI to Globe) --- */}
-      <motion.div style={{ x: parallaxBackX, y: parallaxBackY }} className="absolute inset-0 opacity-[0.2]">
-        <svg className="w-full h-full text-blue-600" xmlns="http://www.w3.org/2000/svg">
-          {/* Sweeping connection curves from right (OWL-AI) to left (Globe) */}
-          <path d="M85% 60% Q 50% 80% 15% 40%" fill="none" stroke="url(#netGradient)" strokeWidth="1" />
-          <path d="M85% 40% Q 55% 10% 10% 45%" fill="none" stroke="url(#netGradient)" strokeWidth="0.5" />
-          <path d="M80% 50% Q 40% 50% 15% 55%" fill="none" stroke="url(#netGradient)" strokeWidth="1.5" />
-          <path d="M90% 70% Q 60% 90% 25% 60%" fill="none" stroke="url(#netGradient)" strokeWidth="0.5" />
-          
-          {/* Intersection nodes on the paths */}
-          <circle cx="50%" cy="65%" r="3" fill="currentColor" className="animate-pulse" />
-          <circle cx="65%" cy="33%" r="2" fill="currentColor" className="animate-pulse" />
-          <circle cx="40%" cy="50%" r="4" fill="currentColor" className="animate-pulse" />
-          <circle cx="25%" cy="60%" r="3" fill="currentColor" className="animate-pulse" />
-          
+      {/* --- LAYER 4: DYNAMIC LIGHT --- */}
+      <motion.div style={{ x: layerMidX, y: layerMidY }} className="absolute inset-0 mix-blend-screen pointer-events-none">
+        {/* Soft Diagonal Light Beams */}
+        <div className="absolute top-0 right-[20%] w-[800px] h-[200%] bg-gradient-to-b from-cyan-400/5 to-transparent rotate-[-45deg] origin-top opacity-50" />
+        <div className="absolute top-0 right-[40%] w-[400px] h-[200%] bg-gradient-to-b from-[color:var(--brand-blue)]/5 to-transparent rotate-[-45deg] origin-top opacity-30" />
+        
+        {/* Radial Glows specific to layout */}
+        <div className="absolute top-[20%] left-[10%] w-[600px] h-[600px] bg-cyan-400/10 rounded-full blur-[100px]" />
+        <div className="absolute top-[30%] right-[10%] w-[800px] h-[800px] bg-[color:var(--brand-blue)]/10 rounded-full blur-[150px]" />
+      </motion.div>
+
+      {/* --- LEFT SIDE: ENHANCED DIGITAL GLOBE --- */}
+      <motion.div 
+        style={{ x: layerBackX, y: layerBackY }}
+        className="absolute -top-[5%] -left-[10%] w-[45vw] h-[45vw] min-w-[600px] min-h-[600px] opacity-40 mix-blend-multiply flex items-center justify-center pointer-events-none"
+      >
+        {/* Soft Outer Glow */}
+        <div className="absolute inset-0 bg-cyan-400/5 rounded-full blur-[80px]" />
+        
+        {/* Core SVG Sphere */}
+        <motion.svg 
+          viewBox="0 0 100 100" 
+          className="absolute inset-0 w-full h-full text-[color:var(--brand-blue)]"
+          animate={{ rotate: 360 }}
+          transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+        >
+           {/* Latitude Lines */}
+           {Array.from({ length: 12 }).map((_, i) => (
+             <ellipse key={`v-${i}`} cx="50" cy="50" rx={48 - i * 4} ry="48" fill="none" stroke="currentColor" strokeWidth="0.1" strokeDasharray="1 3" opacity={0.6} />
+           ))}
+           {/* Longitude Lines */}
+           {Array.from({ length: 12 }).map((_, i) => (
+             <ellipse key={`h-${i}`} cx="50" cy="50" rx="48" ry={48 - i * 4} fill="none" stroke="currentColor" strokeWidth="0.1" strokeDasharray="1 3" opacity={0.6} />
+           ))}
+           
+           {/* Travelling Light Pulses */}
+           <motion.circle 
+             cx="50" cy="50" r="48" fill="none" stroke="currentColor" strokeWidth="0.2" 
+             strokeDasharray="20 200"
+             animate={{ strokeDashoffset: [220, 0] }}
+             transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+           />
+           <motion.ellipse 
+             cx="50" cy="50" rx="24" ry="48" fill="none" stroke="currentColor" strokeWidth="0.2" 
+             strokeDasharray="15 150"
+             animate={{ strokeDashoffset: [165, 0] }}
+             transition={{ duration: 6, repeat: Infinity, ease: "linear", delay: 1 }}
+           />
+        </motion.svg>
+        
+        {/* Orbiting Network Nodes */}
+        <motion.div 
+          className="absolute inset-0"
+          animate={{ rotate: -360 }}
+          transition={{ duration: 45, repeat: Infinity, ease: "linear" }}
+        >
+          {Array.from({ length: 6 }).map((_, i) => (
+            <div 
+              key={`node-${i}`} 
+              className="absolute w-1.5 h-1.5 bg-cyan-500 rounded-full shadow-[0_0_8px_2px_rgba(6,182,212,0.5)]"
+              style={{
+                top: `${50 + 48 * Math.sin((i * 60 * Math.PI) / 180)}%`,
+                left: `${50 + 48 * Math.cos((i * 60 * Math.PI) / 180)}%`,
+                transform: 'translate(-50%, -50%)'
+              }}
+            >
+              <div className="absolute inset-0 rounded-full animate-ping bg-cyan-400 opacity-50" style={{ animationDuration: `${2 + i * 0.5}s` }} />
+            </div>
+          ))}
+        </motion.div>
+      </motion.div>
+
+      {/* --- LAYER 5: AMBIENT PARTICLES --- */}
+      <motion.div style={{ x: layerMidX, y: layerMidY }} className="absolute inset-0 pointer-events-none">
+        {Array.from({ length: 50 }).map((_, i) => (
+          <motion.div
+            key={`particle-${i}`}
+            className={`absolute ${i % 3 === 0 ? 'w-1 h-1 bg-cyan-400 rounded-full' : i % 3 === 1 ? 'text-[8px] font-mono text-[color:var(--brand-blue)]/40' : 'w-1.5 h-1.5 border border-[color:var(--brand-blue)]/30'}`}
+            style={{ 
+              top: `${Math.random() * 100}%`, 
+              left: `${Math.random() * 100}%`,
+              opacity: Math.random() * 0.5 + 0.1
+            }}
+            animate={{ 
+              y: [0, Math.random() * -100 - 50],
+              x: [0, (Math.random() - 0.5) * 50],
+              opacity: [0, 0.8, 0]
+            }}
+            transition={{ 
+              duration: 10 + Math.random() * 15, 
+              repeat: Infinity, 
+              ease: "linear", 
+              delay: Math.random() * 10 
+            }}
+          >
+            {i % 3 === 1 ? (Math.random() > 0.5 ? '0' : '1') : ''}
+          </motion.div>
+        ))}
+      </motion.div>
+
+      {/* --- LAYER 6: DATA FLOW --- */}
+      <motion.div style={{ x: layerMidX, y: layerMidY }} className="absolute inset-0 opacity-[0.8] pointer-events-none">
+        <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
           <defs>
-            {/* Gradient that fades from solid blue at the OWL-AI end to transparent at the globe end */}
-            <linearGradient id="netGradient" x1="100%" y1="0%" x2="0%" y2="0%">
-              <stop offset="0%" stopColor="currentColor" stopOpacity="0.8" />
-              <stop offset="100%" stopColor="currentColor" stopOpacity="0.1" />
+            <linearGradient id="flowGlow" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="var(--brand-blue)" stopOpacity="0" />
+              <stop offset="50%" stopColor="cyan" stopOpacity="0.8" />
+              <stop offset="100%" stopColor="var(--brand-blue)" stopOpacity="0" />
             </linearGradient>
           </defs>
+          <path id="curve1" d="M -10% 80% Q 40% 90% 70% 30% T 110% 50%" fill="none" stroke="url(#flowGlow)" strokeWidth="1" strokeDasharray="4 12" opacity="0.4" />
+          <motion.circle r="2" fill="cyan" style={{ filter: "drop-shadow(0 0 5px cyan)" }}>
+            <animateMotion dur="15s" repeatCount="indefinite" path="M -10% 80% Q 40% 90% 70% 30% T 110% 50%" />
+          </motion.circle>
+          
+          <path id="curve2" d="M 10% 20% C 40% 10%, 60% 60%, 90% 80%" fill="none" stroke="url(#flowGlow)" strokeWidth="1" strokeDasharray="2 8" opacity="0.3" />
+          <motion.circle r="1.5" fill="var(--brand-blue)" style={{ filter: "drop-shadow(0 0 5px var(--brand-blue))" }}>
+            <animateMotion dur="12s" repeatCount="indefinite" path="M 10% 20% C 40% 10%, 60% 60%, 90% 80%" />
+          </motion.circle>
         </svg>
       </motion.div>
 
-      {/* --- BOTTOM: FLOWING AI WAVES --- */}
-      <motion.div style={{ x: parallaxBackX, y: parallaxBackY }} className="absolute bottom-0 left-0 right-0 h-[40%] opacity-[0.1] pointer-events-none">
-        <svg viewBox="0 0 1440 320" className="absolute bottom-0 w-full h-full" preserveAspectRatio="none">
-          <motion.path 
-            fill="#1D4ED8" 
-            fillOpacity="1" 
-            d="M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
-            animate={{ d: [
-              "M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z",
-              "M0,160L48,181.3C96,203,192,245,288,234.7C384,224,480,160,576,149.3C672,139,768,181,864,197.3C960,213,1056,203,1152,181.3C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z",
-              "M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
-            ]}}
-            transition={{ repeat: Infinity, duration: 20, ease: "easeInOut" }}
-          />
-        </svg>
-        <svg viewBox="0 0 1440 320" className="absolute bottom-0 w-full h-full opacity-50" preserveAspectRatio="none">
-          <motion.path 
-            fill="#06B6D4" 
-            fillOpacity="1" 
-            d="M0,256L48,229.3C96,203,192,149,288,154.7C384,160,480,224,576,218.7C672,213,768,139,864,128C960,117,1056,171,1152,197.3C1248,224,1344,224,1392,224L1440,224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
-            animate={{ d: [
-              "M0,256L48,229.3C96,203,192,149,288,154.7C384,160,480,224,576,218.7C672,213,768,139,864,128C960,117,1056,171,1152,197.3C1248,224,1344,224,1392,224L1440,224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z",
-              "M0,224L48,213.3C96,203,192,181,288,197.3C384,213,480,267,576,261.3C672,256,768,192,864,176C960,160,1056,192,1152,192C1248,192,1344,160,1392,144L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z",
-              "M0,256L48,229.3C96,203,192,149,288,154.7C384,160,480,224,576,218.7C672,213,768,139,864,128C960,117,1056,171,1152,197.3C1248,224,1344,224,1392,224L1440,224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
-            ]}}
-            transition={{ repeat: Infinity, duration: 25, ease: "easeInOut", delay: 2 }}
-          />
-        </svg>
-      </motion.div>
+      {/* --- LAYER 7: DECORATIVE CORNER ELEMENTS --- */}
+      <div className="absolute inset-8 pointer-events-none opacity-40">
+        {/* Top Left */}
+        <div className="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-[color:var(--brand-blue)]" />
+        <div className="absolute top-2 left-2 text-[8px] font-mono text-cyan-500 tracking-widest">SYS.01.A</div>
+        <div className="absolute top-6 left-0 w-2 h-[1px] bg-cyan-500" />
+        <div className="absolute top-8 left-0 w-4 h-[1px] bg-cyan-500" />
+        
+        {/* Top Right */}
+        <div className="absolute top-0 right-0 w-16 h-16 border-t-2 border-r-2 border-[color:var(--brand-blue)]" />
+        <div className="absolute top-2 right-2 text-[8px] font-mono text-cyan-500 tracking-widest">NODE.88</div>
+        <div className="absolute top-6 right-0 w-2 h-[1px] bg-cyan-500" />
+        <div className="absolute top-8 right-0 w-4 h-[1px] bg-cyan-500" />
+        
+        {/* Bottom Left */}
+        <div className="absolute bottom-0 left-0 w-16 h-16 border-b-2 border-l-2 border-[color:var(--brand-blue)]" />
+        <div className="absolute bottom-2 left-2 text-[8px] font-mono text-cyan-500 tracking-widest">SEC.99.X</div>
+        
+        {/* Bottom Right */}
+        <div className="absolute bottom-0 right-0 w-16 h-16 border-b-2 border-r-2 border-[color:var(--brand-blue)]" />
+        <div className="absolute bottom-2 right-2 text-[8px] font-mono text-cyan-500 tracking-widest">NET.00.1</div>
+      </div>
 
-      {/* --- TECH GRID / BACKGROUND ACCENTS --- */}
-      <motion.div style={{ x: parallaxBackX, y: parallaxBackY }} className="absolute inset-0 opacity-[0.5]">
-        {/* Faint circles on right */}
-        <div className="absolute top-[5%] right-[2%] w-[800px] h-[800px] border border-blue-200/40 rounded-full" />
-        <div className="absolute top-[10%] right-[5%] w-[700px] h-[700px] border border-blue-200/30 rounded-full" />
-        <div className="absolute top-[15%] right-[10%] w-[600px] h-[600px] border border-dashed border-blue-300/40 rounded-full animate-[spin_120s_linear_infinite]" />
-        
-        {/* Abstract AI Data Hexagons behind OWL-AI section on the right */}
-        <div className="absolute top-[30%] right-[8%] opacity-30 flex gap-4">
-           {Array.from({ length: 5 }).map((_, i) => (
-             <motion.div 
-               key={`hex-${i}`}
-               animate={{ y: [0, -10, 0], opacity: [0.3, 0.7, 0.3] }}
-               transition={{ duration: 4 + i, repeat: Infinity, ease: "easeInOut" }}
-               className="w-12 h-14 border border-blue-400/50 flex items-center justify-center"
-               style={{ clipPath: "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)" }}
-             >
-               <div className="w-1 h-1 bg-blue-500 rounded-full" />
-             </motion.div>
-           ))}
-        </div>
-        
-        {/* Subtle vertical data processing bars on the right */}
-        <div className="absolute bottom-[20%] right-[12%] opacity-40 flex items-end gap-2 h-[100px]">
-           {Array.from({ length: 8 }).map((_, i) => (
-             <motion.div 
-               key={`bar-${i}`}
-               animate={{ height: ["20%", "100%", "20%"] }}
-               transition={{ duration: 2 + i * 0.5, repeat: Infinity, ease: "easeInOut", times: [0, 0.5, 1] }}
-               className="w-[2px] bg-blue-400/50"
-             />
-           ))}
-        </div>
-        
-        {/* Targeting Brackets */}
-        <div className="absolute top-[18%] right-[5%] w-8 h-8 border-t-2 border-r-2 border-blue-400/40" />
-        <div className="absolute top-[18%] right-[5%] w-8 h-8 border-b-2 border-l-2 border-blue-400/40 translate-x-12 translate-y-12" />
-        <div className="absolute bottom-[10%] left-[45%] w-6 h-6 border-t-2 border-l-2 border-blue-400/40" />
-        <div className="absolute bottom-[10%] left-[45%] w-6 h-6 border-b-2 border-r-2 border-blue-400/40 translate-x-8 translate-y-8" />
-        
-        {/* Connecting Lines */}
-        <div className="absolute top-[15%] left-[50%] w-[20%] h-[1px] bg-gradient-to-r from-blue-300/50 to-transparent" />
-        <div className="absolute top-[15%] right-[15%] w-[15%] h-[1px] bg-gradient-to-l from-blue-300/50 to-transparent" />
-        <div className="absolute bottom-[8%] left-[25%] w-[10%] h-[1px] bg-gradient-to-l from-blue-300/50 to-transparent" />
-        <div className="absolute top-[20%] left-[30%] w-[1px] h-[40%] bg-gradient-to-b from-transparent via-blue-300/30 to-transparent" />
-
-        {/* Scattered Geometrics */}
-        <div className="absolute top-[30%] left-[25%] text-blue-400/60 font-mono text-sm">+</div>
-        <div className="absolute top-[15%] right-[20%] text-blue-400/60 font-mono text-sm">+</div>
-        <div className="absolute bottom-[20%] right-[30%] text-blue-400/60 font-mono text-sm">+</div>
-        <div className="absolute top-[40%] right-[5%] w-2 h-2 border border-blue-400/60" />
-        <div className="absolute bottom-[35%] left-[20%] w-2 h-2 border border-blue-400/60" />
-        <div className="absolute top-[25%] left-[45%] w-1.5 h-1.5 bg-blue-400/60" />
-        <div className="absolute bottom-[10%] right-[45%] w-1.5 h-1.5 bg-blue-400/60 rounded-full" />
-      </motion.div>
-
-      {/* --- DECORATIONS (Opacity < 15%) --- */}
-      <motion.div style={{ x: parallaxMidX, y: parallaxMidY }} className="absolute inset-0 opacity-[0.12]">
-        {/* Radar Rings */}
-        <div className="absolute top-[10%] right-[10%] w-[300px] h-[300px] border border-blue-500 rounded-full" />
-        <div className="absolute top-[10%] right-[10%] w-[400px] h-[400px] border border-blue-500 rounded-full" />
-        
-        {/* Tiny outlined circles */}
-        <div className="absolute top-[20%] left-[40%] w-3 h-3 border border-blue-600 rounded-full" />
-        <div className="absolute bottom-[30%] right-[40%] w-4 h-4 border border-blue-600 rounded-full" />
-        
-        {/* Small blue squares */}
-        <div className="absolute top-[15%] left-[50%] w-2 h-2 bg-blue-600" />
-        <div className="absolute bottom-[10%] left-[20%] w-2 h-2 bg-blue-600" />
-        
-        {/* Small yellow squares */}
-        <div className="absolute top-[25%] right-[25%] w-2 h-2 bg-yellow-400" />
-        <div className="absolute bottom-[40%] left-[5%] w-2 h-2 bg-yellow-400" />
-        
-        {/* Corner brackets */}
-        <div className="absolute top-[5%] right-[5%] w-6 h-6 border-t border-r border-blue-600" />
-        <div className="absolute bottom-[5%] left-[5%] w-6 h-6 border-b border-l border-blue-600" />
-        
-        {/* Dotted matrix blocks */}
-        <div className="absolute top-[35%] left-[3%] text-[6px] text-blue-600 font-mono tracking-[0.3em] leading-tight">
-          . . . . .<br/>
-          . . . . .<br/>
-          . . . . .
-        </div>
-        <div className="absolute bottom-[20%] right-[3%] text-[6px] text-blue-600 font-mono tracking-[0.3em] leading-tight">
-          . . . . .<br/>
-          . . . . .<br/>
-          . . . . .
-        </div>
-
-        {/* Tiny glowing particles drifting */}
+      {/* --- LAYER 8: FLOATING DEPTH OBJECTS --- */}
+      <motion.div style={{ x: layerFrontX, y: layerFrontY }} className="absolute inset-0 pointer-events-none opacity-[0.15]">
+        {/* Huge Glass Circle */}
         <motion.div 
-          animate={{ x: [0, 20, 0], y: [0, -20, 0] }}
-          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-          className="absolute top-[40%] right-[20%] w-1 h-1 bg-white rounded-full shadow-[0_0_5px_rgba(255,255,255,1)]"
+          className="absolute top-[20%] left-[10%] w-[300px] h-[300px] rounded-full border-[0.5px] border-cyan-400/30 backdrop-blur-sm"
+          animate={{ y: [0, -30, 0], rotate: [0, 45, 0] }}
+          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
         />
-        <motion.div 
-          animate={{ x: [0, -30, 0], y: [0, 15, 0] }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          className="absolute bottom-[30%] left-[40%] w-1 h-1 bg-white rounded-full shadow-[0_0_5px_rgba(255,255,255,1)]"
-        />
+        {/* Floating Hexagon Outline */}
+        <motion.svg 
+          viewBox="0 0 100 100" 
+          className="absolute bottom-[20%] right-[20%] w-[200px] h-[200px]"
+          animate={{ y: [0, 40, 0], rotate: [0, -45, 0] }}
+          transition={{ duration: 25, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+        >
+          <path d="M50 0 L100 25 L100 75 L50 100 L0 75 L0 25 Z" fill="none" stroke="var(--brand-blue)" strokeWidth="0.5"/>
+        </motion.svg>
+        {/* Wireframe Cube */}
+        <motion.svg 
+          viewBox="0 0 100 100" 
+          className="absolute top-[60%] left-[30%] w-[150px] h-[150px]"
+          animate={{ y: [0, -50, 0], x: [0, 30, 0] }}
+          transition={{ duration: 30, repeat: Infinity, ease: "easeInOut", delay: 5 }}
+        >
+          <rect x="25" y="25" width="50" height="50" fill="none" stroke="cyan" strokeWidth="0.5" />
+          <rect x="40" y="10" width="50" height="50" fill="none" stroke="cyan" strokeWidth="0.5" />
+          <line x1="25" y1="25" x2="40" y2="10" stroke="cyan" strokeWidth="0.5" />
+          <line x1="75" y1="25" x2="90" y2="10" stroke="cyan" strokeWidth="0.5" />
+          <line x1="25" y1="75" x2="40" y2="60" stroke="cyan" strokeWidth="0.5" />
+          <line x1="75" y1="75" x2="90" y2="60" stroke="cyan" strokeWidth="0.5" />
+        </motion.svg>
       </motion.div>
 
-      {/* --- FLOATING GLASS CARDS --- */}
-      <motion.div style={{ x: parallaxFrontX, y: parallaxFrontY }} className="absolute inset-0 pointer-events-none">
-        
-      </motion.div>
-
-
-      {/* Invisible interactive area for mouse tracking to bubble up safely */}
+      {/* LAYER 9: Mouse Interaction Capture */}
       <div 
         className="absolute inset-0 w-full h-full pointer-events-auto" 
         onMouseMove={handleMouseMove}

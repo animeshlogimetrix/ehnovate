@@ -33,12 +33,12 @@ export function Navbar() {
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div
-          className={`flex items-center justify-between rounded-2xl px-4 sm:px-5 py-2.5 transition-all ${
-            scrolled ? "glass shadow-[var(--shadow-elev)]" : "bg-transparent"
+          className={`flex items-center justify-between rounded-2xl px-4 sm:px-5 py-2.5 transition-all duration-500 ${
+            scrolled ? "glass-premium shadow-[var(--shadow-elev)]" : "bg-transparent"
           }`}
         >
-          <Link to="/" className="flex items-center gap-2 shrink-0">
-            <Logo className="h-9 w-auto" />
+          <Link to="/" className="flex items-center gap-2 shrink-0 group">
+            <Logo className="h-9 w-auto transition-transform duration-300 group-hover:scale-105" />
             <span className="sr-only">Ehnovate Technologies</span>
           </Link>
 
@@ -47,11 +47,12 @@ export function Navbar() {
               <Link
                 key={l.to}
                 to={l.to}
-                className="px-3 py-2 rounded-lg text-sm font-medium text-foreground/75 hover:text-foreground hover:bg-foreground/5 transition-colors"
-                activeProps={{ className: "text-primary bg-primary/5" }}
+                className="relative px-3 py-2 rounded-lg text-sm font-medium text-foreground/75 hover:text-foreground transition-colors group"
+                activeProps={{ className: "text-primary" }}
                 activeOptions={{ exact: l.to === "/" }}
               >
                 {l.label}
+                <span className="absolute inset-x-3 bottom-1.5 h-px bg-primary/0 group-hover:bg-primary/50 transition-colors duration-300" />
               </Link>
             ))}
           </nav>
@@ -59,9 +60,12 @@ export function Navbar() {
           <div className="flex items-center gap-2">
             <Link
               to="/contact"
-              className="hidden sm:inline-flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-sm hover:shadow-[var(--shadow-glow)] transition-all"
+              className="relative hidden sm:inline-flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-sm overflow-hidden group transition-all"
             >
-              Contact <ArrowRight className="h-4 w-4" />
+              <span className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
+              <span className="relative z-10 flex items-center gap-1.5">
+                Contact <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+              </span>
             </Link>
             <button
               onClick={() => setOpen((v) => !v)}
