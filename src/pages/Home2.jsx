@@ -1,8 +1,14 @@
 import React from 'react';
+import SEO from '../components/SEO';
 
 export default function Home2() {
   return (
     <>
+      <SEO 
+        title="AI Surveillance, Enterprise Software & Intelligence Platforms"
+        description="Ehnovate Technologies develops next-generation AI platforms for surveillance, intelligence, enterprise operations, and healthcare. Transform data into real-time insights."
+        canonicalUrl="/"
+      />
 
 
 {/*  backtotop - start  */}

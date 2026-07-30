@@ -1,8 +1,14 @@
 import React from 'react';
+import SEO from '../components/SEO';
 
 export default function Products() {
   return (
     <main>
+      <SEO 
+        title="Our Products | ERP, AI Surveillance, Healthcare Platforms" 
+        description="Explore our suite of enterprise software, including OWL AI Surveillance, Secure Link, and advanced Healthcare Platforms." 
+        canonicalUrl="/products" 
+      />
       <style>{`
         /* ── HERO ── */
         .prod-hero-fix {

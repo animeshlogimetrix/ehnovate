@@ -1,8 +1,14 @@
 import React from 'react';
+import SEO from '../components/SEO';
 
 export default function Achievements() {
   return (
     <main>
+      <SEO 
+        title="Our Achievements & Awards | Ehnovate" 
+        description="Explore the awards and recognitions Ehnovate Technologies has received for our cutting-edge AI and enterprise software solutions." 
+        canonicalUrl="/achievements" 
+      />
         {/*  page title start   */}
          <section className="page-title pt-200 pos-rel it-hero-bg">
             <div className="it-hero-bg-shape"><img src="/assets/img/shape/it-hero-bg.png" alt="" /></div>

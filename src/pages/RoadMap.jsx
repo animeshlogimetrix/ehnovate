@@ -1,8 +1,14 @@
 import React from 'react';
+import SEO from '../components/SEO';
 
 export default function RoadMap() {
   return (
     <main>
+      <SEO 
+        title="Our Vision & Roadmap | Ehnovate Technologies" 
+        description="See what the future holds for Ehnovate Technologies as we expand our AI, ERP, and healthcare software platforms globally." 
+        canonicalUrl="/roadmap" 
+      />
         {/*  page title start   */}
          <section className="page-title pt-200 pos-rel it-hero-bg">
             <div className="it-hero-bg-shape"><img src="/assets/img/shape/it-hero-bg.png" alt="" /></div>

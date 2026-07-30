@@ -1,8 +1,14 @@
 import React from 'react';
+import SEO from '../components/SEO';
 
 export default function Contact() {
   return (
     <main>
+      <SEO 
+        title="Contact Us | Ehnovate Technologies" 
+        description="Get in touch with Ehnovate Technologies. Let's discuss how our AI and enterprise software solutions can transform your business." 
+        canonicalUrl="/contact" 
+      />
       <style>{`
         /* ── Hero ── */
         .contact-hero-fix {

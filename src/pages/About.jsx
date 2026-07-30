@@ -1,8 +1,14 @@
 import React from 'react';
+import SEO from '../components/SEO';
 
 export default function About() {
   return (
     <main>
+      <SEO 
+        title="About Us | Enterprise Software & AI Experts" 
+        description="Learn about Ehnovate Technologies, our vision, mission, and how we build intelligent enterprise software and AI solutions." 
+        canonicalUrl="/about" 
+      />
         <style>
         {`
         .about-hero-fix {

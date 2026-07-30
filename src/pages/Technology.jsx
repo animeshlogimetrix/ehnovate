@@ -1,8 +1,14 @@
 import React from 'react';
+import SEO from '../components/SEO';
 
 export default function Technology() {
   return (
     <main>
+      <SEO 
+        title="Our Technologies | AI, Flutter, Next.js, Cloud" 
+        description="Discover the cutting-edge technologies we use at Ehnovate: Next.js, Flutter, Python AI, and cloud-native architectures." 
+        canonicalUrl="/technology" 
+      />
       <style>{`
         /* ── Hero ── */
         .tech-hero-fix {

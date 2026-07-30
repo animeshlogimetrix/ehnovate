@@ -1,8 +1,14 @@
 import React from 'react';
+import SEO from '../components/SEO';
 
 export default function Industries() {
   return (
     <main>
+      <SEO 
+        title="Industries We Serve | Healthcare, Enterprise, Government" 
+        description="We provide tailored software solutions for Healthcare, Enterprise, Government, and more, driving digital transformation and automation." 
+        canonicalUrl="/industries" 
+      />
         {/*  page title start   */}
          <section className="page-title pt-200 pos-rel it-hero-bg">
             <div className="it-hero-bg-shape"><img src="/assets/img/shape/it-hero-bg.png" alt="" /></div>
