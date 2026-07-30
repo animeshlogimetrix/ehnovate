@@ -11,6 +11,7 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
 const prerender = _require('vite-plugin-prerender')
+const JSDOMRenderer = _require('@prerenderer/renderer-jsdom')
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -18,6 +19,7 @@ export default defineConfig({
     react(),
     prerender({
       staticDir: path.join(__dirname, 'dist'),
+      renderer: new JSDOMRenderer(),
       routes: [
         '/',
         '/about',
